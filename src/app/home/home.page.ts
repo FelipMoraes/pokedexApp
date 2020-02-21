@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
 import { DadosPokemonPage } from '../dados-pokemon/dados-pokemon.page';
+import { DadosService } from '../servicos/dados.service';
+
+export interface IPokemon{
+  numero: string;
+  nome: string;
+  tipos: string[];
+  img: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -45,6 +53,10 @@ export class HomePage {
     this.resetarLista();
   }
 
+  abrirDadosPokemon(pokemon: IPokemon){
+    console.log(pokemon);
+  }
+
   private resetarLista(){
     this.listaFiltrada = this.listaPokemons;
   }
@@ -53,10 +65,10 @@ export class HomePage {
     let busca = evento.target.value;
     
     this.resetarLista(); 
-    
+
     if(busca && busca.trim() != ''){
       this.listaFiltrada = this.listaFiltrada.filter( dados =>{
-        if(dados.nome.toLowerCase().indexOf(busca.toLowerCase()) > -1 || dados.numero.toLowerCase().indexOf(busca.toLowerCase()) > -1){
+        if(dados.nome.toLowerCase().indexOf(busca.toLowerCase()) > -1 || (dados.numero.toLowerCase().indexOf(busca.toLowerCase()) > -1)){
           return true;
         }
         return false;
